@@ -12,5 +12,7 @@ module.exports = {
   useBothWheelAxes: false,
   wheelPropagation: false,
   wheelSpeed: 1,
+  pauseScrollX: false,
+  pauseScrollY: false,
   theme: 'default'
 };

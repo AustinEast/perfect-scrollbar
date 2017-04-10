@@ -36,7 +36,8 @@ module.exports = function (element, axis, value) {
 
   var i = instances.get(element);
 
-  if (axis === 'top' && value >= i.contentHeight - i.containerHeight) {
+  if (axis === 'top' && !i.settings.pauseScrollY && value >= i.contentHeight - i.containerHeight) {
+    
     // don't allow scroll past container
     value = i.contentHeight - i.containerHeight;
     if (value - element.scrollTop <= 1) {
@@ -48,7 +49,7 @@ module.exports = function (element, axis, value) {
     element.dispatchEvent(createDOMEvent('ps-y-reach-end'));
   }
 
-  if (axis === 'left' && value >= i.contentWidth - i.containerWidth) {
+  if (axis === 'left' && !i.settings.pauseScrollX && value >= i.contentWidth - i.containerWidth) {
     // don't allow scroll past container
     value = i.contentWidth - i.containerWidth;
     if (value - element.scrollLeft <= 1) {
@@ -84,12 +85,12 @@ module.exports = function (element, axis, value) {
     element.dispatchEvent(createDOMEvent('ps-scroll-right'));
   }
 
-  if (axis === 'top') {
+  if (axis === 'top' && !i.settings.pauseScrollY) {
     element.scrollTop = lastTop = value;
     element.dispatchEvent(createDOMEvent('ps-scroll-y'));
   }
 
-  if (axis === 'left') {
+  if (axis === 'left' && !i.settings.pauseScrollX) {
     element.scrollLeft = lastLeft = value;
     element.dispatchEvent(createDOMEvent('ps-scroll-x'));
   }

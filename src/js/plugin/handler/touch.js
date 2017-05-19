@@ -61,13 +61,18 @@ function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
     }
   }
   function shouldHandle(e) {
+    var result = false;
+
     if (e.targetTouches && e.targetTouches.length === 1) {
-      return true;
+      result = true;
     }
     if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== e.MSPOINTER_TYPE_MOUSE) {
-      return true;
+      result = true;
     }
-    return false;
+    if(i.settings.pauseScrollX || i.settings.pauseScrollY) {
+      result = false;
+    }
+    return result;
   }
   function touchStart(e) {
     if (shouldHandle(e)) {
